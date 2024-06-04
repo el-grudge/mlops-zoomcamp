@@ -22,7 +22,8 @@ blocks:
   configuration:
     file_source:
       path: homework_03/transformers/prepare.py
-  downstream_blocks: []
+  downstream_blocks:
+  - prepare_line_chart_b4
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -58,4 +59,28 @@ tags: []
 type: python
 uuid: homework_3
 variables_dir: /home/src/mage_data/homework_03
-widgets: []
+widgets:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_type: line chart
+    group_by:
+    - tpep_pickup_datetime
+    metrics:
+    - aggregation: count
+      column: tpep_pickup_datetime
+    x: x
+    y: y
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: prepare_line chart_b4
+  retry_config: null
+  status: updated
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - prepare
+  uuid: prepare_line_chart_b4
