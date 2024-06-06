@@ -24,18 +24,37 @@ blocks:
       path: homework_03/transformers/prepare.py
   downstream_blocks:
   - prepare_line_chart_b4
+  - log
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: prepare
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
   - ingest_data
   uuid: prepare
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: homework_03/data_exporters/log.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: log
+  retry_config: null
+  status: failed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - prepare
+  uuid: log
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -60,7 +79,7 @@ type: python
 uuid: homework_3
 variables_dir: /home/src/mage_data/homework_03
 widgets:
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     chart_type: line chart
@@ -78,7 +97,7 @@ widgets:
   language: python
   name: prepare_line chart_b4
   retry_config: null
-  status: updated
+  status: failed
   timeout: null
   type: chart
   upstream_blocks:

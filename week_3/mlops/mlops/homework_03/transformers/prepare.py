@@ -1,4 +1,10 @@
+from typing import Tuple
+from pandas import DataFrame
+from scipy.sparse._csr import csr_matrix
 import pandas as pd
+from numpy import float64, ndarray
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.linear_model import LinearRegression
 
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
@@ -21,8 +27,9 @@ def read_dataframe(df):
     
     return df
 
+
 @transformer
-def transform(data, *args, **kwargs):
+def transform(data, *args, **kwargs) -> Tuple[csr_matrix, ndarray, DictVectorizer, LinearRegression]:
     """
     Template code for a transformer block.
 
@@ -37,9 +44,24 @@ def transform(data, *args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     # Specify your transformation logic here
+    data = data.head(1000)
+    data = read_dataframe(data)
+    # print(data.shape[0])
+    categorical = ['PULocationID', 'DOLocationID']
+    train_dicts = data[categorical].to_dict(orient='records')
 
+    dv = DictVectorizer()
+    X_train = dv.fit_transform(train_dicts)
 
-    return read_dataframe(data)
+    target = 'duration'
+    y_train = data[target].values
+    print(type(y_train))
+
+    lr = LinearRegression()
+    # lr.fit(X_train, y_train)
+    # print(lr.intercept_)
+
+    return X_train, y_train, dv, lr
 
 
 @test
