@@ -1,5 +1,5 @@
 from typing import Tuple
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from scipy.sparse._csr import csr_matrix
 import pandas as pd
 from numpy import float64, ndarray
@@ -44,7 +44,7 @@ def transform(data, *args, **kwargs) -> Tuple[csr_matrix, ndarray, DictVectorize
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     # Specify your transformation logic here
-    data = data.head(1000)
+    # data = data.head(1000)
     data = read_dataframe(data)
     # print(data.shape[0])
     categorical = ['PULocationID', 'DOLocationID']
@@ -54,12 +54,11 @@ def transform(data, *args, **kwargs) -> Tuple[csr_matrix, ndarray, DictVectorize
     X_train = dv.fit_transform(train_dicts)
 
     target = 'duration'
-    y_train = data[target].values
-    print(type(y_train))
+    y_train = data[target]
 
     lr = LinearRegression()
-    # lr.fit(X_train, y_train)
-    # print(lr.intercept_)
+    lr.fit(X_train, y_train)
+    print(lr.intercept_)
 
     return X_train, y_train, dv, lr
 

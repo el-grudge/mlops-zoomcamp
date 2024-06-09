@@ -2,11 +2,12 @@ from typing import Tuple
 from scipy.sparse._csr import csr_matrix
 from pandas import DataFrame, Series
 import pandas as pd
-from numpy import float64
+from numpy import float64, ndarray
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LinearRegression
 import mlflow
 import mlflow.sklearn
+from mlflow.models.signature import infer_signature
 import pickle
 
 
@@ -14,27 +15,11 @@ if 'data_exporter' not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
 
 
-def log_model_and_artifact(model, vectorizer, model_name='linear_regression_model', artifact_name='dict_vectorizer.pkl'):
-    # Start a new MLflow run
-    with mlflow.start_run():
-        # Log the linear regression model
-        mlflow.sklearn.log_model(model, model_name)
-        
-        # Save the DictVectorizer object to a file
-        with open(artifact_name, 'wb') as f:
-            pickle.dump(vectorizer, f)
-        
-        # Log the DictVectorizer object as an artifact
-        mlflow.log_artifact(artifact_name)
-
-        print(f"Model and artifact logged successfully. Run ID: {mlflow.active_run().info.run_id}")
-
-
 @data_exporter
 def export_data(
     settings: Tuple[
         csr_matrix, 
-        Series,
+        ndarray,
         DictVectorizer, 
         LinearRegression
     ], **kwargs
@@ -51,10 +36,18 @@ def export_data(
         displayed when inspecting the block run.
     """
     # Specify your data exporting logic here
+    # print('working')
     X_train, y_train, dv, lr = settings
+    # Logging the model with MLflow
+    mlflow.set_tracking_uri("http://mlflow:5000")
 
-    # train the model
-    lr.fit(X_train, y_train)
+    # Ensure there are no active runs
+    if mlflow.active_run():
+        mlflow.end_run()
 
-    # Log the model and vectorizer
-    # log_model_and_artifact(dv, lr)
+    with mlflow.start_run() as run:
+        # Log model
+        mlflow.sklearn.log_model(lr, "model")
+        # Optionally log other artifacts
+        mlflow.log_param("dict_vectorizer", dv)
+        print(f"Model logged with run_id: {run.info.run_id}")
