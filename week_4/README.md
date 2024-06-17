@@ -20,7 +20,7 @@ There are two ways a machine learning model can be deployed:
 Here's a guide of how to deploy a model as a webservice:  
     1- Create a virtual environment to install dependencies. Use `pip freeze` to get the package versions there were used when training the model, and install them in the virtual environment.   
     2- Wrap the predict function in an api (use either fastapi or flask).  
-    3- Containarize the enviornment and the artifacts with docker. Make sure to use a production ready webservice (ex. gunicorn) when deploying the webservice in production. Some useful docker commands:  
+    3- Containarize the environment and the artifacts with docker. Make sure to use a production ready webservice (ex. gunicorn) when deploying the webservice in production. Some useful docker commands:  
     
 ```shell
 # to build a docker image. 
@@ -42,6 +42,6 @@ docker run -it --rm -p 9696:9696 image_name:v001
     - To avoid relying on the MLFlow tracking service and possibly creating a bottleneck consider connecting MLflow to a cloud bucket and use the model from that bucket instead.
 
 🚀 Deploying a model
-In the weekly project we built an I created a flask app for my duration predction model and built a docker container around it so it can be deployed as a webservice. You can view the code [here](https://github.com/el-grudge/mlops-zoomcamp/tree/main/week_4).
+In the weekly project we built an I created a flask app for my duration prediction model and built a docker container around it so it can be deployed as a webservice. You can view the code [here](https://github.com/el-grudge/mlops-zoomcamp/tree/main/week_4).
 
 #mlops_zoomcamp #ochestration #deployment #flask #machine_learning #docker #learning_in_public
