@@ -26,7 +26,7 @@ In week 5️⃣ of the MLOps Zoomcamp we learned about
 
 * 🌊🗂️ Monitoring non-batch models (ex. a streaming / online model) can be more complicated, especially when calculating things like data drift and concept drift. The best way to tackle this issue is to use a window function (ex. moving window with / without moving reference) to break up the data into batches and compare those windows.
 
-Emeli Dral showed us how to setup a monitoring service using evidently.ai and Grafana. Here's a simple guide:
+Emeli Dral showed us how to setup a monitoring service using evidently.ai and Grafana. Here's a simple guide:  
 1- 🖥️ Created a virtual environvment  
 2- 🐍📦 Install python libraries  
 3- 🐳⚙️ Create a docker compose yml to run the services that will be needed for the monitoring application (postgres, adminer, grafana)  
