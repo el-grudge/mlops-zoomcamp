@@ -27,10 +27,10 @@ In week 5️⃣ of the MLOps Zoomcamp we learned about
 * 🌊🗂️ Monitoring non-batch models (ex. a streaming / online model) can be more complicated, especially when calculating things like data drift and concept drift. The best way to tackle this issue is to use a window function (ex. moving window with / without moving reference) to break up the data into batches and compare those windows.
 
 Emeli Dral showed us how to setup a monitoring service using evidently.ai and Grafana. Here's a simple guide:
-1- 🖥️ Created a virtual environvment
-2- 🐍📦 Install python libraries
-3- 🐳⚙️ Create a docker compose yml to run the services that will be needed for the monitoring application (postgres, adminer, grafana)
-4- 📊🔧 Use evidently.ai metrics to monitor column drift, dataset drift, dataset missing values, column quantiles, dataset correlations, and much more (you can learn more about the available metrics [here](https://docs.evidentlyai.com/reference/all-metrics#data-quality))
+1- 🖥️ Created a virtual environvment  
+2- 🐍📦 Install python libraries  
+3- 🐳⚙️ Create a docker compose yml to run the services that will be needed for the monitoring application (postgres, adminer, grafana)  
+4- 📊🔧 Use evidently.ai metrics to monitor column drift, dataset drift, dataset missing values, column quantiles, dataset correlations, and much more (you can learn more about the available metrics [here](https://docs.evidentlyai.com/reference/all-metrics#data-quality))  
 
 📝🔍 Monitoring a production model
 In the weekly project we built a monitoring dashboard using evidently and Grafana and looked at multiple metrics from our trip duration model, including the fare amount 50th quantile. You can view the code [here](https://github.com/el-grudge/mlops-zoomcamp/tree/main/week_5).
