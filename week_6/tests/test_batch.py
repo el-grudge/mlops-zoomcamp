@@ -18,22 +18,19 @@ def test_prepare_data():
         (3, 4, dt(1, 2, 0), dt(2, 2, 1)),
     ]
 
-    categorical = ['PULocationID', 'DOLocationID']
     columns = ['PULocationID', 'DOLocationID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime']
     df = pd.DataFrame(data, columns=columns)
 
+    # Define the expected output and use the assert to make sure that the actual dataframe matches the expected one
+    categorical = ['PULocationID', 'DOLocationID']
     df_actual = prepare_data(df, categorical)
 
     data_expected = [
-        ('-1', '-1', 8.0),
-        ('1',  '-1', 8.0),
-        ('1', '2', 1.0),
-    ]
+            ('-1', '-1', dt(1, 2), dt(1, 10), 8.0),
+            ('1',  '-1', dt(1, 2), dt(1, 10), 8.0),
+            ('1', '2', dt(2, 2), dt(2, 3), 1.0),
+        ]
 
-    columns_test = ['PULocationID', 'DOLocationID', 'duration']
-    df_expected = pd.DataFrame(data_expected, columns=columns_test)
-    print(df_actual)
+    df_expected = pd.DataFrame(data_expected, columns=columns+['duration'])
 
-    assert (df_actual['PULocationID'] == df_expected['PULocationID']).all()
-    assert (df_actual['DOLocationID'] == df_expected['DOLocationID']).all()
-    assert (df_actual['duration'] - df_expected['duration']).abs().sum() < 0.0000001
+    assert df_actual.equals(df_expected)
