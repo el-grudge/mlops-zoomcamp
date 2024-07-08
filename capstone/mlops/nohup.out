@@ -1,0 +1,20 @@
+time="2024-07-07T22:46:23Z" level=warning msg="/home/minasonbol/mlops-zoomcamp/capstone/mlops/docker-compose.yml: `version` is obsolete"
+service "mlflow" refers to undefined volume mlflow: invalid compose project
+time="2024-07-07T22:47:23Z" level=warning msg="/home/minasonbol/mlops-zoomcamp/capstone/mlops/docker-compose.yml: `version` is obsolete"
+time="2024-07-07T22:47:23Z" level=warning msg="The \"PYTHONPATH\" variable is not set. Defaulting to a blank string."
+time="2024-07-07T22:47:23Z" level=warning msg="The \"PYTHONPATH\" variable is not set. Defaulting to a blank string."
+ Container mlops-mlflow-1  Creating
+ Container mlops-mlflow-1  Created
+Attaching to magic-database-1, magic-platform-1, mlflow-1
+magic-database-1  | 
+magic-database-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+magic-database-1  | 
+magic-database-1  | 2024-07-07 22:47:23.950 UTC [1] LOG:  starting PostgreSQL 16.1 (Debian 16.1-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+magic-database-1  | 2024-07-07 22:47:23.950 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+magic-database-1  | 2024-07-07 22:47:23.950 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+magic-database-1  | 2024-07-07 22:47:23.954 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+magic-database-1  | 2024-07-07 22:47:23.961 UTC [29] LOG:  database system was shut down at 2024-07-07 22:24:29 UTC
+magic-database-1  | 2024-07-07 22:47:23.973 UTC [1] LOG:  database system is ready to accept connections
+magic-platform-1  | /home/src/mlops/requirements.txt exists.
+Gracefully stopping... (press Ctrl+C again to force)
+Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "server": executable file not found in $PATH: unknown

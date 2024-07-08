@@ -1,0 +1,12 @@
+boto3
+fastparquet
+graphviz
+hyperopt
+jupyter
+lightgbm==4.4.0
+mlflow==2.13.0
+pandas
+scikit-learn
+seaborn
+shap
+xgboost

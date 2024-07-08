@@ -1,0 +1,86 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: bank_marketing/global_data_products/training_set.py
+    global_data_product:
+      outdated_after:
+        seconds: 600
+      settings:
+        build:
+          partitions: 1
+      uuid: bank_training_data
+  downstream_blocks:
+  - training
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: training_set
+  retry_config: {}
+  status: executed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: training_set
+- all_upstream_blocks_executed: true
+  color: teal
+  configuration:
+    dynamic: true
+    file_source:
+      path: bank_marketing/custom/load_models.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_models
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks: []
+  uuid: load_models
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: bank_marketing/transformers/training.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: training
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - training_set
+  uuid: training
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-07-07 04:11:08.820221+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: training
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: training
+variables_dir: /home/src/mage_data/bank_marketing
+widgets: []

@@ -1,0 +1,69 @@
+if 'custom' not in globals():
+    from mage_ai.data_preparation.decorators import custom
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+@custom
+def transform_custom(*args, **kwargs):
+    """
+    args: The output from any upstream parent blocks (if applicable)
+
+    Returns:
+        Anything (e.g. data frame, dictionary, array, int, str, etc.)
+    """
+    # Specify your custom logic here
+
+    return {}
+
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'
+
+
+
+
+# LOAD MODELS
+from typing import Dict, List, Tuple
+
+if 'custom' not in globals():
+    from mage_ai.data_preparation.decorators import custom
+
+
+@custom
+def models(*args, **kwargs) -> Tuple[List[str], List[Dict[str, str]]]:
+    """
+    models: comma separated strings
+        linear_model.Lasso
+        linear_model.LinearRegression
+        svm.LinearSVR
+        ensemble.ExtraTreesRegressor
+        ensemble.GradientBoostingRegressor
+        ensemble.RandomForestRegressor
+    """
+    model_names: str = kwargs.get(
+        'models', 'linear_model.LinearRegression,linear_model.Lasso'
+    )
+    child_data: List[str] = [
+        model_name.strip() for model_name in model_names.split(',')
+    ]
+    child_metadata: List[Dict] = [
+        dict(block_uuid=model_name.split('.')[-1]) for model_name in child_data
+    ]
+
+    return child_data, child_metadata
+
+
+
+model_classes = [
+    RandomForestClassifier,
+    XGBClassifier,
+    lgb.LGBMClassifier,
+    LogisticRegression,
+    SVC,
+    MLPClassifier
+]

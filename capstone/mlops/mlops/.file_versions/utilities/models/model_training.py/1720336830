@@ -1,0 +1,41 @@
+import importlib
+from sklearn.metrics import accuracy_score
+from mlops.utilities.logging import track_experiment
+from typing import Callable, Optional
+
+
+def load_class(module_and_class_name):
+    parts = module_and_class_name.split('.')
+    class_name = parts[-1]
+    module_path = '.'.join(parts[:-1])
+    module = importlib.import_module(module_path)
+    cls = getattr(module, class_name)
+    return cls
+
+
+def train_model(
+    model,
+    X_train,
+    y_train,
+    X_val,
+    y_val,
+    callback: Optional[Callable[..., None]] = None,
+    **kwargs,
+):
+    model.fit(X_train, y_train)
+
+    metrics = None
+    y_pred = model.predict(X_val)
+
+    accuracy = accuracy_score(y_val, y_pred)
+    metrics = accuracy
+
+    if callback:
+        callback(
+            hyperparameters=model.get_params(),
+            metrics=metrics,
+            model=model,
+            predictions=y_pred,
+        )
+
+    return model, metrics, y_pred

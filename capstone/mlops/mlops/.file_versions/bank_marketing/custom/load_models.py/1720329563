@@ -1,0 +1,13 @@
+# LOAD MODELS
+if 'custom' not in globals():
+    from mage_ai.data_preparation.decorators import custom
+
+
+@custom
+def models(*args, **kwargs):
+    model_names = ['RandomForestClassifier', 'XGBClassifier', 'lgb.LGBMClassifier', 'LogisticRegression', 'SVC', 'MLPClassifier']
+    metadata = [
+        dict(block_uuid=model_name.split('.')[-1]) for model_name in model_names
+    ]
+
+    return model_names, metadata

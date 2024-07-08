@@ -1,0 +1,48 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accurayc_score
+from mlops.utilities.models.model_training import load_class, train_model
+
+if 'transformer' not in globals():
+    from mage_ai.data_preparation.decorators import transformer
+
+
+@transformer
+def training(
+    training_set,
+    model_class_name,
+    *args,
+    **kwargs,
+):
+    """
+    Template code for a transformer block.
+
+    Add more parameters to this function if this block has multiple parent blocks.
+    There should be one parameter for each output variable from each parent block.
+
+    Args:
+        data: The output from the upstream parent block
+        args: The output from any additional upstream blocks (if applicable)
+
+    Returns:
+        Anything (e.g. data frame, dictionary, array, int, str, etc.)
+    """
+    # Specify your transformation logic here
+    # model_class = load_class(model_class_name)
+    model_class = LogisticRegression()
+    X_train, X_val, y_train, y_val, dv = training_set['build']
+
+    model_class.fit(X_train.toarray(), y_train.values)
+    y_pred = model_class.predict(X_val)
+    accuracy = accuracy_score(y_val, y_pred)
+
+#     model, metrics, y_pred = train_model(
+#         model_class,
+#         X_train=X_train,
+#         y_train=y_train,
+#         X_val=X_val,
+#         y_val=y_val,
+#         random_state=42,
+#     )
+# 
+#     return metrics
+    return accuracy

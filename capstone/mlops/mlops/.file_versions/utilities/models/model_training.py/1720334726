@@ -1,0 +1,34 @@
+import importlib
+
+
+def load_class(module_and_class_name):
+    parts = module_and_class_name.split('.')
+    class_name = parts[-1]
+    module_path = '.'.join(parts[:-1])
+    module = importlib.import_module(module_path)
+    cls = getattr(module, class_name)
+    return cls
+
+
+def train_model(
+    model: BaseEstimator,
+    X_train: csr_matrix,
+    y_train: Series,
+    X_val: Optional[csr_matrix] = None,
+    eval_metric: Callable = mean_squared_error,
+    fit_params: Optional[Dict] = None,
+    y_val: Optional[Series] = None,
+    **kwargs,
+) -> Tuple[BaseEstimator, Optional[Dict], Optional[np.ndarray]]:
+    model.fit(X_train, y_train, **(fit_params or {}))
+
+    metrics = None
+    y_pred = None
+    if X_val is not None and y_val is not None:
+        y_pred = model.predict(X_val)
+
+        rmse = eval_metric(y_val, y_pred, squared=False)
+        mse = eval_metric(y_val, y_pred, squared=True)
+        metrics = dict(mse=mse, rmse=rmse)
+
+    return model, metrics, y_pred    

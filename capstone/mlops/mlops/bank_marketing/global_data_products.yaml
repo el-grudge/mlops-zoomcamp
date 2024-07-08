@@ -1,0 +1,10 @@
+bank_training_data:
+  object_type: pipeline
+  object_uuid: data_preparation
+  outdated_after:
+    seconds: 600
+  project: bank_marketing
+  repo_path: /home/src/mlops/bank_marketing
+  settings:
+    build:
+      partitions: 1

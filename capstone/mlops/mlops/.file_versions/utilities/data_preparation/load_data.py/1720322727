@@ -1,0 +1,6 @@
+import pandas as pd
+
+def data_loader(url):
+    # load the data
+    df = pd.read_csv(url)
+    return df

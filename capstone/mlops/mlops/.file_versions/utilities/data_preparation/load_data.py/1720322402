@@ -1,0 +1,7 @@
+import pandas as pd
+
+def load_data():
+    # load the data
+    file_url = 'https://archive.ics.uci.edu/static/public/222/data.csv'
+    df = pd.read_csv(file_url)
+    return df

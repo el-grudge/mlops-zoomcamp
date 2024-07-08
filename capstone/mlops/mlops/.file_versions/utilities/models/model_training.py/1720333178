@@ -1,0 +1,9 @@
+import importlib
+
+def load_class(module_and_class_name):
+    parts = module_and_class_name.split('.')
+    class_name = parts[-1]
+    module_path = '.'.join(parts[:-1])
+    module = importlib.import_module(module_path)
+    cls = getattr(module, class_name)
+    return cls

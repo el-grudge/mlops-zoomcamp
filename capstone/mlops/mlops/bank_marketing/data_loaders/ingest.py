@@ -1,0 +1,14 @@
+from mlops.utilities.data_preparation.load_data import ingest_data
+
+if 'data_loader' not in globals():
+    from mage_ai.data_preparation.decorators import data_loader
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+@data_loader
+def load_data(*args, **kwargs):
+    url = 'https://archive.ics.uci.edu/static/public/222/data.csv'
+    df = ingest_data(url)
+
+    return df

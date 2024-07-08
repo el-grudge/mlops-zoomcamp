@@ -1,0 +1,7 @@
+projects:
+  bank_marketing:
+    path: bank_marketing
+  unit_0_setup: {}
+  unit_1_data_preparation: {}
+  unit_2_training: {}
+  unit_3_observability: {}
