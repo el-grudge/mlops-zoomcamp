@@ -73,4 +73,7 @@ Learn practical aspects of productionizing ML services — from training and exp
 [More details](week_6/README.md)
 
 
+### [Capstone]capstone/)
+
+
 
